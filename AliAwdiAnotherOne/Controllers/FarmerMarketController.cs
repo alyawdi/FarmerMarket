@@ -1,5 +1,6 @@
 ﻿using AliAwdiAnotherOne.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AliAwdiAnotherOne.Controllers
 {
@@ -11,56 +12,63 @@ namespace AliAwdiAnotherOne.Controllers
         private readonly FarmersMarketDbContext _context;
 
         public FarmerMarketController(ILogger<FarmerMarketController> logger, FarmersMarketDbContext context)
-        { 
+        {
             _logger = logger;
             _context = context;
         }
-            /*the list was removed and subistute by a database inside my memory*/
+
         [HttpGet]
-        public IEnumerable<FarmerMarket> Get()
+        public async Task<IEnumerable<FarmerMarket>> GetAsync()
         {
             _logger.LogInformation("You fetched all the goods in your store");
-            return _context.FarmerMarkets.AsQueryable().ToList();
+            return await _context.FarmerMarkets.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public FarmerMarket GetById(int id)
+        public async Task<FarmerMarket> GetByIdAsync(int id)
         {
             _logger.LogInformation($"You fetched the vegetables/fruits with the following ID: {id}");
-            return _context.FarmerMarkets.FirstOrDefault(farmermarket => farmermarket.Id == id);
+            return await _context.FarmerMarkets.FirstOrDefaultAsync(farmermarket => farmermarket.Id == id);
+        }
+        [HttpGet("name")]
+        public async Task<FarmerMarket> GetbyNameAsync (string name)
+        {
+            _logger.LogInformation($"You fetched all the fruits and vegetables with this name: {name}");
+            return await _context.FarmerMarkets.FirstOrDefaultAsync(farmermarket => farmermarket.Name == name);
         }
 
         [HttpPost]
-        public FarmerMarket Create(string name, int quantity)
+        public async Task<FarmerMarket> CreateAsync(string name, int quantity)
         {
             FarmerMarket farmerMarket = new(name, quantity);
             _context.FarmerMarkets.Add(farmerMarket);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return farmerMarket;
         }
 
         [HttpPut]
-        public FarmerMarket Update(int id, string newname, int newquantity )
+        public async Task<FarmerMarket> UpdateAsync(int id, string newname, int newquantity)
         {
-            FarmerMarket farmerMarket = _context.FarmerMarkets.FirstOrDefault(fm => fm.Id == id);
+            FarmerMarket farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id);
             farmerMarket.UpdateFarmerMarket(newname, newquantity);
-            _context.SaveChangesAsync();
-           return farmerMarket;
-
+            await _context.SaveChangesAsync();
+            return farmerMarket;
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            FarmerMarket farmerMarket = _context.FarmerMarkets.FirstOrDefault(fm => fm.Id == id);
+            FarmerMarket farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id);
             if (farmerMarket == null)
             {
                 return NotFound();
             }
 
-             _context.FarmerMarkets.Remove(farmerMarket);
-              _context.SaveChanges();
+            _context.FarmerMarkets.Remove(farmerMarket);
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }
+    
 }
+
