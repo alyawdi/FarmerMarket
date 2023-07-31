@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AliAwdiAnotherOne.Migrations.ResturantOrderDb
+namespace AliAwdiAnotherOne.Migrations
 {
-    [DbContext(typeof(ResturantOrderDbContext))]
-    partial class ResturantOrderDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppDbContext))]
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
-            modelBuilder.Entity("AliAwdiAnotherOne.Models.ResturantsOrders", b =>
+            modelBuilder.Entity("AliAwdiAnotherOne.Domain.RestaurantOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,25 @@ namespace AliAwdiAnotherOne.Migrations.ResturantOrderDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResturantsOrders");
+                    b.ToTable("RestaurantOrders");
+                });
+
+            modelBuilder.Entity("AliAwdiAnotherOne.FarmerMarket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FarmerMarkets");
                 });
 #pragma warning restore 612, 618
         }

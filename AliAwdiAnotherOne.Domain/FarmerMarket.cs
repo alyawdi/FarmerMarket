@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml;
-
-namespace AliAwdiAnotherOne.Models
+﻿namespace AliAwdiAnotherOne
 {
     public class FarmerMarket
     {
@@ -11,6 +7,7 @@ namespace AliAwdiAnotherOne.Models
         public string Name { get; private set; }
         public int Quantity { get; private set; }
 
+        private FarmerMarket() { }
         public FarmerMarket(string name, int quantity)
         {
             Id = counter++;
@@ -18,38 +15,25 @@ namespace AliAwdiAnotherOne.Models
             Quantity = quantity < 0 ? throw new Exception("the quantity can't be less than zero") : quantity;
 
         }
-        public FarmerMarket() { }  
-        public void UpdateFarmerMarket(string newname, int newquantity)
+        public void UpdateFarmerMarket(string newName, int newQuantity)
         {
-            Name = newname;
-            Quantity = newquantity <= 0 ? throw new Exception("how dare u put quantity below than zero") : newquantity;
+            Name = newName;
+            Quantity = newQuantity <= 0 ? throw new Exception("how dare u put quantity below than zero") : newQuantity;
         }
-    }
 
-    public class ResturantsOrders
-    {
-        public int Id { get; private set; }
-        private static int counter = 1;
-        public string Name { get; private set; }
-        public int RequiredQuantity { get; private set; }
-        public int FinalCost { get; private set; }
-       public ResturantsOrders(string name, int requiredQuantity, int finalCost)
+        public int OrderItem(int orderedQuantity)
         {
-            
-            Id = counter++;
-            Name = name;
-            RequiredQuantity = requiredQuantity;
-            FinalCost = finalCost;
-        }
-        public void UpdateResturantsOrder(string newname, int newquantity)
-        {
-            Name = newname;
-            RequiredQuantity = newquantity <= 0 ? throw new Exception("how dare u put quantity below than zero") : newquantity;
+            if (Quantity <= 0)
+                throw new Exception("This item is not currently available.");
+
+            var newOrderedQuantity = orderedQuantity > Quantity ? Quantity : orderedQuantity;
+            Quantity = orderedQuantity > Quantity ? 0 : Quantity - orderedQuantity;
+            return newOrderedQuantity;
         }
     }
 }
-    
 
-    
+
+
 
 

@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AliAwdiAnotherOne.Migrations
 {
-    [DbContext(typeof(FarmersMarketDbContext))]
-    [Migration("20230720113820_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20230731141352_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,28 @@ namespace AliAwdiAnotherOne.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
-            modelBuilder.Entity("AliAwdiAnotherOne.Models.FarmerMarket", b =>
+            modelBuilder.Entity("AliAwdiAnotherOne.Domain.RestaurantOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FinalCost")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RequiredQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RestaurantOrders");
+                });
+
+            modelBuilder.Entity("AliAwdiAnotherOne.FarmerMarket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

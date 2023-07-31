@@ -2,16 +2,30 @@
 
 #nullable disable
 
-namespace AliAwdiAnotherOne.Migrations.ResturantOrderDb
+namespace AliAwdiAnotherOne.Migrations
 {
     /// <inheritdoc />
-    public partial class MyMigration : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ResturantsOrders",
+                name: "FarmerMarkets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FarmerMarkets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RestaurantOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -22,7 +36,7 @@ namespace AliAwdiAnotherOne.Migrations.ResturantOrderDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResturantsOrders", x => x.Id);
+                    table.PrimaryKey("PK_RestaurantOrders", x => x.Id);
                 });
         }
 
@@ -30,7 +44,10 @@ namespace AliAwdiAnotherOne.Migrations.ResturantOrderDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ResturantsOrders");
+                name: "FarmerMarkets");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantOrders");
         }
     }
 }

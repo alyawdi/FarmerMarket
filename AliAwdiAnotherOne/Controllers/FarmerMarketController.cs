@@ -1,5 +1,4 @@
-﻿using AliAwdiAnotherOne.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliAwdiAnotherOne.Controllers
@@ -9,9 +8,9 @@ namespace AliAwdiAnotherOne.Controllers
     public class FarmerMarketController : ControllerBase
     {
         private readonly ILogger<FarmerMarketController> _logger;
-        private readonly FarmersMarketDbContext _context;
+        private readonly AppDbContext _context;
 
-        public FarmerMarketController(ILogger<FarmerMarketController> logger, FarmersMarketDbContext context)
+        public FarmerMarketController(ILogger<FarmerMarketController> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -28,29 +27,29 @@ namespace AliAwdiAnotherOne.Controllers
         public async Task<FarmerMarket> GetByIdAsync(int id)
         {
             _logger.LogInformation($"You fetched the vegetables/fruits with the following ID: {id}");
-            return await _context.FarmerMarkets.FirstOrDefaultAsync(farmermarket => farmermarket.Id == id);
+            return await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id) ?? throw new Exception("Market not found.");
         }
         [HttpGet("name")]
-        public async Task<FarmerMarket> GetbyNameAsync (string name)
+        public async Task<FarmerMarket> GetByNameAsync(string name)
         {
             _logger.LogInformation($"You fetched all the fruits and vegetables with this name: {name}");
-            return await _context.FarmerMarkets.FirstOrDefaultAsync(farmermarket => farmermarket.Name == name);
+            return await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Name == name) ?? throw new Exception("Market not found.");
         }
 
         [HttpPost]
         public async Task<FarmerMarket> CreateAsync(string name, int quantity)
         {
-            FarmerMarket farmerMarket = new(name, quantity);
+            var farmerMarket = new FarmerMarket(name, quantity);
             _context.FarmerMarkets.Add(farmerMarket);
             await _context.SaveChangesAsync();
             return farmerMarket;
         }
 
         [HttpPut]
-        public async Task<FarmerMarket> UpdateAsync(int id, string newname, int newquantity)
+        public async Task<FarmerMarket> UpdateAsync(int id, string newName, int newQuantity)
         {
-            FarmerMarket farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id);
-            farmerMarket.UpdateFarmerMarket(newname, newquantity);
+            var farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id) ?? throw new Exception("Market not found.");
+            farmerMarket.UpdateFarmerMarket(newName, newQuantity);
             await _context.SaveChangesAsync();
             return farmerMarket;
         }
@@ -58,17 +57,14 @@ namespace AliAwdiAnotherOne.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            FarmerMarket farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id);
-            if (farmerMarket == null)
-            {
+            var farmerMarket = await _context.FarmerMarkets.FirstOrDefaultAsync(fm => fm.Id == id);
+            if (farmerMarket is null)
                 return NotFound();
-            }
 
             _context.FarmerMarkets.Remove(farmerMarket);
             await _context.SaveChangesAsync();
             return Ok();
         }
     }
-    
 }
 

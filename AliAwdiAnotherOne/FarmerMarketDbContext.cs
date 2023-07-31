@@ -1,21 +1,23 @@
-﻿using AliAwdiAnotherOne.Models;
+﻿using AliAwdiAnotherOne.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliAwdiAnotherOne
 {
-    public class FarmersMarketDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public FarmersMarketDbContext(DbContextOptions<FarmersMarketDbContext> options) : base(options)
+        public string DbPath { get; }
+        public AppDbContext()
         {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = Path.Join(path, "market.db");
         }
 
-        public DbSet<FarmerMarket> FarmerMarkets { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite($"Data Source={DbPath}");
 
-    }
-    public class ResturantOrderDbContext : DbContext
-    {
-        public ResturantOrderDbContext(DbContextOptions<ResturantOrderDbContext> options) : base(options) { }
-        public DbSet<ResturantsOrders> ResturantsOrders { get; set; }
+        public DbSet<FarmerMarket> FarmerMarkets { get; set; }
+        public DbSet<RestaurantOrder> RestaurantOrders { get; set; }
     }
 }
 
