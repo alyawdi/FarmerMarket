@@ -1,4 +1,4 @@
-﻿namespace AliAwdiAnotherOne
+﻿namespace AliAwdiAnotherOne.Domain.Entities
 {
     public class FarmerMarket
     {

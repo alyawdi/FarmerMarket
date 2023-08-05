@@ -1,5 +1,4 @@
-﻿using AliAwdiAnotherOne.Domain;
-
+﻿using AliAwdiAnotherOne.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿using AliAwdiAnotherOne.Domain;
+﻿using AliAwdiAnotherOne.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliAwdiAnotherOne

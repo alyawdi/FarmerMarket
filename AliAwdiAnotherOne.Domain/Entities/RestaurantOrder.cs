@@ -1,4 +1,4 @@
-﻿namespace AliAwdiAnotherOne.Domain
+﻿namespace AliAwdiAnotherOne.Domain.Entities
 {
     public class RestaurantOrder
     {
