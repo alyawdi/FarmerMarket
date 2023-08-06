@@ -1,20 +1,12 @@
-﻿using AliAwdiAnotherOne.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-namespace AliAwdiAnotherOne.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FarmerMarketController : ControllerBase
-    {
-        private readonly ILogger<FarmerMarketController> _logger;
-        private readonly AppDbContext _context;
-
-        public FarmerMarketController(ILogger<FarmerMarketController> logger, AppDbContext context)
+﻿/*/
+       *//* private readonly ILogger<FarmerMarketController> _logger;
+        private readonly AppDbContext _context;*//*
+        private readonly IMediator _mediator;
+        public FarmerMarketController(*//*ILogger<FarmerMarketController> logger, AppDbContext context,*//* IMediator mediator)
         {
-            _logger = logger;
-            _context = context;
+         *//*   _logger = logger;
+            _context = context;*//*
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -69,3 +61,46 @@ namespace AliAwdiAnotherOne.Controllers
     }
 }
 
+**/
+using AliAwdiAnotherOne.Application.DTOs;
+using AliAwdiAnotherOne.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands;
+using AliAwdiAnotherOne.Application.Queries.FarmerMarketQueries;
+using AliAwdiAnotherOne.Shared;
+namespace AliAwdiAnotherOne.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FarmerMarketController : ControllerBase
+    {
+
+
+        private readonly IMediator _mediator;
+
+        public FarmerMarketController (IMediator mediator)
+            => _mediator = mediator;
+
+        [HttpGet]
+        public async Task<List<FarmerDto>> Get([FromQuery] GetAllFarmerQuery query, CancellationToken cancellationToken)
+            => await _mediator.Send(query, cancellationToken);
+
+        [HttpGet("byId")]
+        public async Task<FarmerDto> Get([FromQuery] GetByIDFarmerQuery query, CancellationToken cancellationToken)
+            => await _mediator.Send(query, cancellationToken);
+
+        [HttpPost]
+        public async Task<Response<FarmerDto>> Post(CreateFarmerMarket command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+
+        [HttpPut]
+        public async Task<Response<FarmerDto>> Put(UpdateFarmerMarket command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+
+        [HttpDelete]
+        public async Task Delete(DeleteFarmerMarket command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+    }
+}

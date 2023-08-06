@@ -1,4 +1,4 @@
-﻿using AliAwdiAnotherOne.Domain.Entities;
+﻿/*using AliAwdiAnotherOne.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -71,5 +71,48 @@ namespace AliAwdiAnotherOne.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+    }
+}
+*/
+using AliAwdiAnotherOne.Application.DTOs;
+using AliAwdiAnotherOne.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands;
+using AliAwdiAnotherOne.Application.Queries.RestaurantOrderQueries;
+using AliAwdiAnotherOne.Shared;
+namespace AliAwdiAnotherOne.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RestaurantOrderController : ControllerBase
+    {
+
+
+        private readonly IMediator _mediator;
+
+        public RestaurantOrderController (IMediator mediator)
+            => _mediator = mediator;
+
+        [HttpGet]
+        public async Task<List<FarmerDto>> Get([FromQuery] GetAllOrdersQuery query, CancellationToken cancellationToken)
+            => await _mediator.Send(query, cancellationToken);
+
+        [HttpGet("byId")]
+        public async Task<RestaurantDto> Get([FromQuery] GetByIDOrderQuery query, CancellationToken cancellationToken)
+            => await _mediator.Send(query, cancellationToken);
+
+        [HttpPost]
+        public async Task<Response<RestaurantDto>> Post(CreateRestaurantOrder command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+
+        [HttpPut]
+        public async Task<Response<RestaurantDto>> Put(UpdateRestaurantOrder command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
+
+        [HttpDelete]
+        public async Task Delete(DeleteRestaurantOrder command, CancellationToken cancellationToken)
+            => await _mediator.Send(command, cancellationToken);
     }
 }

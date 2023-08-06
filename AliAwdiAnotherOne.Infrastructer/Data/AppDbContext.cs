@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AliAwdiAnotherOne
 {
+
     public class AppDbContext : DbContext
     {
         public string DbPath { get; }
@@ -20,4 +21,3 @@ namespace AliAwdiAnotherOne
         public DbSet<RestaurantOrder> RestaurantOrders { get; set; }
     }
 }
-
