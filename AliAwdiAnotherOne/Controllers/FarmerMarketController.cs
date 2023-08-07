@@ -70,7 +70,7 @@ using Microsoft.EntityFrameworkCore;
 using AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands;
 using AliAwdiAnotherOne.Application.Queries.FarmerMarketQueries;
 using AliAwdiAnotherOne.Shared;
-namespace AliAwdiAnotherOne.Controllers
+namespace AliAwdiAnotherOne.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

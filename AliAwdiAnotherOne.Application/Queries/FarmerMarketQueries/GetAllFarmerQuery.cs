@@ -8,6 +8,6 @@ using AliAwdiAnotherOne.Shared.Abstractions.Application.Queries;
 
 namespace AliAwdiAnotherOne.Application.Queries.FarmerMarketQueries
 {
-    internal record GetAllFarmerQuery ():IQuery<List<FarmerDto>>;
+    public record GetAllFarmerQuery ():IQuery<List<FarmerDto>>;
     
 }

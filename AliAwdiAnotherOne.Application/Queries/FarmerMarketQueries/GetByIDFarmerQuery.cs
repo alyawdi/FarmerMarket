@@ -9,6 +9,6 @@ using AliAwdiAnotherOne.Shared.Abstractions.Application.Queries;
 
 namespace AliAwdiAnotherOne.Application.Queries.FarmerMarketQueries
 {
-    internal record GetByIDFarmerQuery (int Id): IQuery<FarmerDto>;
+    public record GetByIDFarmerQuery (int Id): IQuery<FarmerDto>;
   
 }

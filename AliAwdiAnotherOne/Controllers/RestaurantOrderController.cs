@@ -82,7 +82,7 @@ using Microsoft.EntityFrameworkCore;
 using AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands;
 using AliAwdiAnotherOne.Application.Queries.RestaurantOrderQueries;
 using AliAwdiAnotherOne.Shared;
-namespace AliAwdiAnotherOne.Controllers
+namespace AliAwdiAnotherOne.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -96,7 +96,7 @@ namespace AliAwdiAnotherOne.Controllers
             => _mediator = mediator;
 
         [HttpGet]
-        public async Task<List<FarmerDto>> Get([FromQuery] GetAllOrdersQuery query, CancellationToken cancellationToken)
+        public async Task<List<RestaurantDto>> Get([FromQuery] GetAllOrderQuery query, CancellationToken cancellationToken)
             => await _mediator.Send(query, cancellationToken);
 
         [HttpGet("byId")]

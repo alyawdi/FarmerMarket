@@ -20,12 +20,12 @@ namespace AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands.Handler
         }
         public async Task<Response<RestaurantDto>> Handle(UpdateRestaurantOrder request, CancellationToken cancellationToken)
         {
-            var (TargetedId, newName, newQuantity, FarmerId) = request;
+            var (TargetedId, newName, Quantity, FarmerId) = request;
             var farmers = await _farmer.GetWholeByIdAsync(FarmerId, cancellationToken);
             var newQuantity = farmers.OrderItem(farmers.Id);
             farmers.UpdateFarmerMarket(farmers.Name, newQuantity);
 
-            RestaurantOrder restaurantOrder = new(newName, newQuantity,1000);
+            RestaurantOrder restaurantOrder = new(newName, Quantity,1000);
             var UpdateOrder = await _order.UpdateAsync(restaurantOrder, cancellationToken);
             return Response.Success(UpdateOrder.Adapt<RestaurantOrder, RestaurantDto>(), "Updated user " + UpdateOrder.Name + UpdateOrder.RequiredQuantity);
 
