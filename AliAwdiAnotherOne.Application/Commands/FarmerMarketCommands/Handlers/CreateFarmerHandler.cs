@@ -33,4 +33,3 @@ namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers
         }
     }
 }
-7

@@ -9,5 +9,5 @@ using System.Windows.Input;
 
 namespace AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands
 {
-public record CreateRestaurantOrder (string Name, int Quantity,int cost) : ICommand<RestaurantDto>; 
+public record CreateRestaurantOrder (int FarmerID, string Name, int Quantity) : ICommand<RestaurantDto>; 
 }

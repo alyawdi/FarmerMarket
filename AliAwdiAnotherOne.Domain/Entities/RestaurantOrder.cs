@@ -19,5 +19,8 @@
             Name = newname;
             RequiredQuantity = newQuantity <= 0 ? throw new Exception("Quantity must be positive.") : newQuantity;
         }
+
+
     }
+
 }
