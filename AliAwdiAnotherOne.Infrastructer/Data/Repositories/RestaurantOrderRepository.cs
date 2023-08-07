@@ -3,6 +3,8 @@
 using AliAwdiAnotherOne.Domain.Entities;
 using AliAwdiAnotherOne.Infrastructure.Data.Migrations.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AliAwdiAnotherOne.Infrastructure.Data.Exceptions;
+
 
 namespace AliAwdiAnotherOne.Infrastructure.Data.Repositories
 {
@@ -23,6 +25,5 @@ namespace AliAwdiAnotherOne.Infrastructure.Data.Repositories
                            .Include(p => p.RequiredQuantity)
                            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
                 ?? throw new NotFoundException(typeof(RestaurantOrder).Name, id);
-
     }
 }

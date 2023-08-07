@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AliAwdiAnotherOne.Application.Repositories;
+using AliAwdiAnotherOne.Infrastructure.Data.Exceptions;
 
 namespace AliAwdiAnotherOne.Infrastructure.Data.Migrations.Repositories
 {

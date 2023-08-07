@@ -8,5 +8,5 @@ using AliAwdiAnotherOne.Shared.Abstractions.Application.Commands;
 
 namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands
 {
-public record CreateFarmerMarket (string newName, int newQuantity) : ICommand<FarmerDto>; 
+public record CreateFarmerMarket (string NewName, int NewQuantity) : ICommand<FarmerDto>; 
 }

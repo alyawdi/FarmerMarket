@@ -1,8 +1,8 @@
 ﻿using AliAwdiAnotherOne.Application.Repositories;
 using AliAwdiAnotherOne.Domain.Entities;
 using AliAwdiAnotherOne.Infrastructure.Data.Migrations.Repositories;
+using AliAwdiAnotherOne.Infrastructure.Data.Exceptions;
 using Microsoft.EntityFrameworkCore;
-
 namespace AliAwdiAnotherOne.Infrastructure.Data.Repositories
 {
     internal class FarmerMarketRepository : BaseRepository<FarmerMarket>, IFarmerMarketRepo

@@ -9,5 +9,5 @@ using AliAwdiAnotherOne.Shared.Abstractions.Application.Commands;
 
 namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands
 {
-public record DeleteFarmerMarket(int Id) : ICommand<Unit>>;
+public record DeleteFarmerMarket(int Id) : ICommand<Unit>;
 }

@@ -8,5 +8,6 @@ using AliAwdiAnotherOne.Application.DTOs;
 
 namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands
 {
-public record UpdateFarmerMarket (int Id, string newName, int newQuantity):ICommand<FarmerDto>;
+
+public record UpdateFarmerMarket(int Id, string NewName, int NewQuantity) : ICommand<FarmerDto>;
 }
