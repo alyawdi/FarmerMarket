@@ -8,7 +8,12 @@ using AliAwdiAnotherOne.Application.Repositories;
 using AliAwdiAnotherOne.Shared.Abstractions.Application.Commands;
 using AliAwdiAnotherOne.Application.DTOs;
 using AliAwdiAnotherOne.Shared;
+using AliAwdiAnotherOne.Application.DTOs;
+using AliAwdiAnotherOne.Application.Repositories;
+using AliAwdiAnotherOne.Domain.Entities;
+using AliAwdiAnotherOne.Shared;
 
+using Mapster;
 namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers
 {
     internal class CreateFarmerHandler : ICommandHandler<CreateFarmerMarket, FarmerDto>
@@ -19,12 +24,12 @@ namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers
             _farmerMarket = FarmerMarket;
         }
         
-        public async Task<Response<>> Handle (CreateFarmerMarket farmermarket,CancellationToken cancellationToken)
+        public async Task<Response<FarmerDto>> Handle (CreateFarmerMarket request,CancellationToken cancellationToken)
         {
-            var (name, quantity) = farmermarket;
-
-            var newFarmerMarket = await _farmerMarket.AddAsync(farmermarket, cancellationToken);
-            return Response.Success<>
+            var (name, quantity) = request;
+            FarmerMarket farmerMarket = new (name,quantity);
+            var newFarmerMarket = await _farmerMarket.AddAsync(farmerMarket, cancellationToken);
+            return Response.Success(newFarmerMarket.Adapt<FarmerMarket, FarmerDto>(), " Created user " + newFarmerMarket.Name + newFarmerMarket.Quantity);
         }
     }
 }

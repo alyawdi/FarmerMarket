@@ -7,28 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 using AliAwdiAnotherOne.Shared.Abstractions.Application.Commands;
 using AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands;
+using AliAwdiAnotherOne.Application.Repositories;
 
 namespace AliAwdiAnotherOne.Application.Commands.PostCommands.Handlers
 {
     internal class DeletePostHandler : ICommandHandler<DeleteFarmerMarket, Unit>
     {
-        private readonly IPostRepository _posts;
+        private readonly IFarmerMarketRepo _farmer;
 
 
-        public DeletePostHandler(IPostRepository posts)
+        public DeletePostHandler(IFarmerMarketRepo farmer)
         {
-            _posts = posts;
+            _farmer = farmer;
         }
 
-        public async Task<Response<Unit>> Handle(DeletePostCommand request, CancellationToken cancellationToken)
-        {
-            var post = await _posts.GetByIdAsync(request.Id, cancellationToken);
-            if (post.Tags is not null)
-                foreach (var tag in post.Tags)
-                    post.RemoveTag(tag);
-            await _posts.UpdateAsync(post, cancellationToken);
-            await _posts.DeleteAsync(request.Id, cancellationToken);
-            return Response.Success(Unit.Value, "Deleted post");
+        public async Task<Response<Unit>> Handle(DeleteFarmerMarket request, CancellationToken cancellationToken)
+        {// note: you should check the exception of not finding any farmer with this id
+         
+                await _farmer.DeleteAsync(request.Id, cancellationToken);
+                return Response.Success(Unit.Value, "Deleted user");
+            
         }
     }
 }
