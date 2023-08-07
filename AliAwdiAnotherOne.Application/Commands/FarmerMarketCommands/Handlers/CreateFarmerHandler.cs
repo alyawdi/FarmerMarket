@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using AliAwdiAnotherOne.Application.Repositories;
 using AliAwdiAnotherOne.Shared.Abstractions.Application.Commands;
 using AliAwdiAnotherOne.Application.DTOs;
 using AliAwdiAnotherOne.Shared;
-using AliAwdiAnotherOne.Application.DTOs;
-using AliAwdiAnotherOne.Application.Repositories;
 using AliAwdiAnotherOne.Domain.Entities;
-using AliAwdiAnotherOne.Shared;
 
 using Mapster;
 namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers

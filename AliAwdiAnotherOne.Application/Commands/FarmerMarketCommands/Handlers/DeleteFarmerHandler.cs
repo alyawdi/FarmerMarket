@@ -11,12 +11,12 @@ using AliAwdiAnotherOne.Application.Repositories;
 
 namespace AliAwdiAnotherOne.Application.Commands.PostCommands.Handlers
 {
-    internal class DeletePostHandler : ICommandHandler<DeleteFarmerMarket, Unit>
+    internal class DeleteFarmerHandler : ICommandHandler<DeleteFarmerMarket, Unit>
     {
         private readonly IFarmerMarketRepo _farmer;
 
 
-        public DeletePostHandler(IFarmerMarketRepo farmer)
+        public DeleteFarmerHandler(IFarmerMarketRepo farmer)
         {
             _farmer = farmer;
         }

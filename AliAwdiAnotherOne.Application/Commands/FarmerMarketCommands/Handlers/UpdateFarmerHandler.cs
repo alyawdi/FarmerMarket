@@ -18,22 +18,9 @@ namespace AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers
 
         public async Task<Response<FarmerDto>> Handle(UpdateFarmerMarket request, CancellationToken cancellationToken)
         {
-            var (id, name, quantity) = request;
+            var (Id, name, quantity) = request;
             FarmerMarket farmermarket = new(name, quantity);
             var updatedFarmer = await _farmer.UpdateAsync(farmermarket, cancellationToken);
-            /*var user = await _farmer.GetWholeByIdAsync(id, cancellationToken);
-
-            var newPosts = new List<FarmerMarket>();
-
-            foreach (var postId in postIds)
-                newPosts.Add(await _posts.GetByIdAsync(postId, cancellationToken));
-
-            user.UpdateUsername(username);
-            user.UpdateEmail(email);
-            user.UpdatePosts(newPosts);
-
-            var updatedUser = await _users.UpdateAsync(user, cancellationToken);*/
-
             return Response.Success(updatedFarmer.Adapt<FarmerMarket, FarmerDto>(), "Updated user " + updatedFarmer.Name + updatedFarmer.Quantity);
         }
     }

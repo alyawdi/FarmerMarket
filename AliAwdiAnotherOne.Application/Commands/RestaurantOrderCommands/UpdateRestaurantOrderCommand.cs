@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands
 {
-public record UpdateRestaurantOrder (int Id, string NewName, int NewQuantity) : ICommand<RestaurantDto>;
+public record UpdateRestaurantOrder (int targetedId, string NewName, int NewQuantity, int FarmerId) : ICommand<RestaurantDto>;
 }

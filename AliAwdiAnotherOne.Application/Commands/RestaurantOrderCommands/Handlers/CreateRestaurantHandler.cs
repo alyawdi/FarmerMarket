@@ -8,11 +8,11 @@ using Mapster;
 
 namespace AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands.Handlers
 {
-    internal class CreateRestarurantHandler : ICommandHandler<CreateRestaurantOrder, RestaurantDto>
+    internal class CreateRestaurantHandler : ICommandHandler<CreateRestaurantOrder, RestaurantDto>
     {
         private readonly IRestaurantOrderRepo _order;
         private readonly IFarmerMarketRepo _farmer;
-        public CreateRestarurantHandler(IRestaurantOrderRepo order, IFarmerMarketRepo farmer)
+        public CreateRestaurantHandler(IRestaurantOrderRepo order, IFarmerMarketRepo farmer)
         {
             _order = order;
             _farmer = farmer;
@@ -21,6 +21,7 @@ namespace AliAwdiAnotherOne.Application.Commands.RestaurantOrderCommands.Handler
         public async Task<Response<RestaurantDto>> Handle(CreateRestaurantOrder command, CancellationToken cancellationToken)
         {
             var (FarmerID, Name, RequiredQuantity) = command;
+            //the updating of farmermarket methods
             var farmers = await _farmer.GetWholeByIdAsync(FarmerID, cancellationToken);
             var newQuantity = farmers.OrderItem(farmers.Id);
             farmers.UpdateFarmerMarket(Name,newQuantity);
