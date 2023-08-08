@@ -1,6 +1,11 @@
 using AliAwdiAnotherOne;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using FluentValidation;
+using NuGet.Protocol.Core.Types;
+using System;
+using AliAwdiAnotherOne.Domain.Entities;
+using AliAwdiAnotherOne.Application.Commands.FarmerMarketCommands.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +16,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddMediatR(cfg => {
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
