@@ -2,11 +2,6 @@
 using AliAwdiAnotherOne.Application.Repositories;
 using AliAwdiAnotherOne.Domain.Entities;
 using AliAwdiAnotherOne.Shared.Abstractions.Application.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mapster;
 
 namespace AliAwdiAnotherOne.Application.Queries.FarmerMarketQueries.Handlers
