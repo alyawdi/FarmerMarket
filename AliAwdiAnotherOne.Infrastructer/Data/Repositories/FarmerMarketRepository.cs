@@ -15,7 +15,7 @@ namespace AliAwdiAnotherOne.Infrastructure.Data.Repositories
             _farmerMarkets = _context.Set<FarmerMarket>();
         }
         public async Task<IEnumerable<FarmerMarket>> GetWholeAsync(CancellationToken cancellationToken)
-            => await _farmerMarkets.Include(fm => fm.Name).Include(fm => fm.Quantity).ToListAsync(cancellationToken);
+            => await _farmerMarkets.Include(fm =>fm.Name).Include(fm => fm.Quantity).ToListAsync(cancellationToken);
 
         public async Task<FarmerMarket> GetWholeByIdAsync(int id, CancellationToken cancellationToken)
             => await _farmerMarkets.Include(fm =>fm.Name)

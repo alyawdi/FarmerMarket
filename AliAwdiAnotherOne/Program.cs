@@ -1,19 +1,18 @@
 using AliAwdiAnotherOne;
 using AliAwdiAnotherOne.Application;
+using AliAwdiAnotherOne.Application.DTOs;
 using AliAwdiAnotherOne.Infrastructure.Config;
-using AliAwdiAnotherOne.Application.Repositories;
-
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
