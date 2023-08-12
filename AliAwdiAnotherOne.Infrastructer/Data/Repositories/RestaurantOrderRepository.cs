@@ -18,11 +18,11 @@ namespace AliAwdiAnotherOne.Infrastructure.Data.Repositories
             _RestaurantOrders = _context.Set<RestaurantOrder>();
         }
         public async Task<IEnumerable<RestaurantOrder>> GetWholeAsync(CancellationToken cancellationToken)
-            => await _RestaurantOrders.Include(ro => ro.Name).Include(ro =>ro.RequiredQuantity ).ToListAsync(cancellationToken);
+            => await _RestaurantOrders./*Include(ro => ro.Name).Include(ro =>ro.RequiredQuantity )*/ToListAsync(cancellationToken);
 
         public async Task<RestaurantOrder> GetWholeByIdAsync(int id, CancellationToken cancellationToken)
-            => await _RestaurantOrders.Include(ro =>ro.Name)
-                           .Include(p => p.RequiredQuantity)
+            => await _RestaurantOrders/*Include(ro =>ro.Name)
+                           .Include(p => p.RequiredQuantity)*/
                            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
                 ?? throw new NotFoundException(typeof(RestaurantOrder).Name, id);
     }
