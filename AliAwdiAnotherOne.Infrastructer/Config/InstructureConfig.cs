@@ -1,5 +1,5 @@
-﻿
-using AliAwdiAnotherOne.Infrastructure.Data;
+﻿using AliAwdiAnotherOne.Infrastructure.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 namespace AliAwdiAnotherOne.Infrastructure.Config
 {
@@ -10,5 +10,12 @@ namespace AliAwdiAnotherOne.Infrastructure.Config
             services.AddDatabase();
             return services;
         }
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+            return app;
+        }
     }
+
+  
 }
